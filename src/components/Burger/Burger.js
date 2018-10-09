@@ -18,6 +18,7 @@ const burger = (props) => {
     }
     return (
         <div className={classes.Burger}>
+            {props.price}
             <BurgerIngredient type="bread-top"/>
             {mappedIngredients}
             {/* <BurgerIngredient type="cheese"/>
