@@ -98,7 +98,8 @@ removeIngredientHandler = (type) => {
         <OrderSummary 
         ingredients={this.state.ingredients}
         purchaseCanceled={this.purchaseCancelHandler}
-        purchaseContinued={this.purchaseContinueHandler}></OrderSummary>
+        purchaseContinued={this.purchaseContinueHandler}
+        totalPrice={this.state.totalPrice}/>
       </Modal>
         <Burger 
         ingredients={this.state.ingredients}/>
