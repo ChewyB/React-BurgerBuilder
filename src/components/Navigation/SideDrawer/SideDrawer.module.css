@@ -6,13 +6,13 @@
     left: 0;
     top: 0;
     z-index: 200;
-    background-color: whilte;
+    background-color: white;
     padding: 32px 16px;
     box-sizing: border-box;
     transition: transform 0.3s ease-out;
 }
 
-@media (min-width: 500) {
+@media (min-width: 500px) {
     .SideDrawer{
         display: none;
     }
@@ -28,4 +28,5 @@
 
 .Logo {
     height: 11%;
+    margin-bottom: 32px;
 }
