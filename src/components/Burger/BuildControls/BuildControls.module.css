@@ -38,6 +38,18 @@
     animation: enable 0.3s linear;
 }
 
+.PurgeButton {
+    background-color: rgb(248, 7, 7);
+    cursor: help;
+    border: 1px solid #f3f3f3;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1.2em;
+    margin: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 2px #966909;
+}
+
 @keyframes enable {
     0% {
         transform: scale(1);

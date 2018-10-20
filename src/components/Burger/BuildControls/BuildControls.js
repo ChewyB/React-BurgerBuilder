@@ -25,6 +25,9 @@ const buildControls = (props) => (
         className={classes.OrderButton}
         disabled={!props.purchasable}
         onClick={props.ordered}>ORDER NOW</button>
+
+        {/* Working on deleting all elements from the burger */}
+        <button className={classes.PurgeButton}>PURGE BURGER</button>
     </div>
 );
 
