@@ -27,7 +27,10 @@ const buildControls = (props) => (
         onClick={props.ordered}>ORDER NOW</button>
 
         {/* Working on deleting all elements from the burger */}
-        <button className={classes.PurgeButton}>PURGE BURGER</button>
+        <button 
+        className={classes.PurgeButton}
+        onClick={props.purge}
+        >PURGE BURGER</button>
     </div>
 );
 
