@@ -42,7 +42,7 @@ class BurgerBuilder extends Component {
   purgeBurgerHandler = () => {
 
     const currIngredients = {
-      ... this.state.ingredients
+      ...this.state.ingredients
     }
     currIngredients['salad'] = 0;
     currIngredients['bacon'] = 0;
@@ -50,7 +50,8 @@ class BurgerBuilder extends Component {
     currIngredients['meat'] = 0;
 
     this.setState({
-      ingredients: currIngredients
+      ingredients: currIngredients,
+      totalPrice: 4
     })
   }
 
