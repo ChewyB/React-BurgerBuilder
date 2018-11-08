@@ -44,6 +44,7 @@ class BurgerBuilder extends Component {
         this.setState({error: true})
       });
   }
+  
 
   updatePurchaseState(ingredients) {
     const sum = Object.keys(ingredients)
@@ -99,7 +100,7 @@ class BurgerBuilder extends Component {
     };
 
     axios
-      .post("/orders.json", order)
+      .post("/orders.j", order)
       .then(response => {
         this.setState({ loading: false, purchasing: false });
       })
