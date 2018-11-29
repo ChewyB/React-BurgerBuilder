@@ -41,10 +41,9 @@ class BurgerBuilder extends Component {
         this.setState({ ingredients: response.data });
       })
       .catch(error => {
-        this.setState({error: true})
+        this.setState({ error: true });
       });
   }
-  
 
   updatePurchaseState(ingredients) {
     const sum = Object.keys(ingredients)
@@ -84,30 +83,42 @@ class BurgerBuilder extends Component {
   purchaseContinueHandler = () => {
     this.setState({ loading: true });
 
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Jesus Beltran",
-        address: {
-          street: "TestStreet 1",
-          zipCode: "92122",
-          country: "MERICA"
-        },
-        email: "test@gmail.com"
-      },
-      deliveryMethod: "fastest"
-    };
+    const queryParams = [];
 
-    axios
-      .post("/orders.json", order)
-      .then(response => {
-        this.setState({ loading: false, purchasing: false });
-      })
-      .catch(error => {
-        this.setState({ loading: false, purchasing: false });
-      });
-  };
+    for(let ingredient in this.state.ingredients) {
+      queryParams.push(encodeURIComponent(ingredient) + '=' + encodeURIComponent(this.state.ingredients[ingredient]))
+    }
+
+    console.log("Processed ingredients for query param " + queryParams);
+    
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryParams
+    });
+  //   const order = {
+  //     ingredients: this.state.ingredients,
+  //     price: this.state.totalPrice,
+  //     customer: {
+  //       name: "Jesus Beltran",
+  //       address: {
+  //         street: "TestStreet 1",
+  //         zipCode: "92122",
+  //         country: "MERICA"
+  //       },
+  //       email: "test@gmail.com"
+  //     },
+  //     deliveryMethod: "fastest"
+  //   };
+
+  //   axios
+  //     .post("/orders.json", order)
+  //     .then(response => {
+  //       this.setState({ loading: false, purchasing: false });
+  //     })
+  //     .catch(error => {
+  //       this.setState({ loading: false, purchasing: false });
+  //     });
+ };
   //#endregion
 
   addIngredientHandler = type => {
@@ -154,7 +165,11 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    let burger = this.state.error ? <p>Ingredients can't be loaded</p> : <Spinner />;
+    let burger = this.state.error ? (
+      <p>Ingredients can't be loaded</p>
+    ) : (
+      <Spinner />
+    );
 
     if (this.state.ingredients) {
       burger = (
@@ -172,12 +187,14 @@ class BurgerBuilder extends Component {
         </>
       );
       orderSummary = (
-        <OrderSummary
-          ingredients={this.state.ingredients}
-          purchaseCanceled={this.purchaseCancelHandler}
-          purchaseContinued={this.purchaseContinueHandler}
-          totalPrice={this.state.totalPrice}
-        />
+
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            purchaseCanceled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+            totalPrice={this.state.totalPrice}
+          />
+      
       );
     }
 
@@ -193,8 +210,9 @@ class BurgerBuilder extends Component {
         >
           {orderSummary}
         </Modal>
-        
+
         {burger}
+
       </>
     );
   }
