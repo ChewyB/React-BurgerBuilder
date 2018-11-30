@@ -1,18 +1,14 @@
 import React, { Component } from "react";
-import {Route} from 'react-router-dom';
+import { Route } from "react-router-dom";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import ContactData from './ContactData/ContactData';
 class Checkout extends Component {
   state = {
-    ingredients: {
-      salad: 1,
-      meat: 1,
-      cheese: 1,
-      bacon: 1
-    }
+    ingredients: null,
+    totalPrice: 0
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.parseParams();
   }
 
@@ -27,17 +23,25 @@ class Checkout extends Component {
   parseParams = () => {
     const urlParams = new URLSearchParams(this.props.location.search);
     const parsedIngredients = {};
+    let parsedPrice = 0;
+    let key = 0;
+    let value = 1;
 
-    for(let params of urlParams.entries()) {
-        parsedIngredients[params[0]] = +params[1]; //params[0] is the key, so the name of the ingredient; params[1] is the value, so the amount of ingredients
+    for (let params of urlParams.entries()) {
+      if (params[key] === "price") {
+        parsedPrice = params[value];
+      }
+      else {
+        parsedIngredients[params[key]] = +params[value]; //params[0] is the key, so the name of the ingredient; params[1] is the value, so the amount of ingredients
+      }
     }
     this.setState({
-        ingredients: parsedIngredients
-    })
+      ingredients: parsedIngredients,
+      totalPrice: parsedPrice
+    });
   };
 
   render() {
-
     return (
       <div>
         <CheckoutSummary
@@ -45,7 +49,15 @@ class Checkout extends Component {
           checkOutCancel={this.checkOutCancelHandler}
           checkOutContinue={this.checkOutContinueHandler}
         />
-        <Route path={this.props.match.path + '/contact-data'} component={ContactData}/>
+        <Route
+          path={this.props.match.path + "/contact-data"}
+          render={(props) => (
+            <ContactData 
+            ingredients={this.state.ingredients} 
+            price={this.state.totalPrice}
+            {...props}/>
+          )}
+        />
       </div>
     );
   }
