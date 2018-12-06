@@ -17,14 +17,14 @@ class Orders extends Component {
         const fetchedOrders = [];
         for (let key in res.data) {
           fetchedOrders.push({
-            ...res.data[key],
+            ...res.data[key], //Push data into new local array
             id: key
           });
         }
         //console.log(fetchedOrders);
-        this.setState({
+        this.setState({     
           loading: false,
-          orders: fetchedOrders
+          orders: fetchedOrders //Grab that local array and then set the state to our global variable
         });
       })
       .catch(err => {
