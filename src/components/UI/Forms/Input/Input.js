@@ -3,15 +3,31 @@ import classes from "./Input.module.css";
 
 const input = props => {
   let inputElement = null;
+  //console.log("The input type passed in " + props.inputtype);
+  switch (props.elementType) {
+    case "select":
+      inputElement = (
+        <select
+          onChange={props.changed}
+          className={classes.InputElement}
+          value={props.value}
+        >
+          {props.elementConfig.options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.displayValue}
+            </option>
+          ))}
+        </select>
+      );
+      break;
 
-  switch (props.inputtype) {
     case "input":
       inputElement = (
         <input
           className={classes.InputElement}
-          {...props}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.changed}
         />
       );
       break;
@@ -19,12 +35,13 @@ const input = props => {
       inputElement = (
         <input
           className={classes.InputElement}
-          {...props}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.changed}
         />
       );
       break;
+
     default:
       inputElement = (
         <input
@@ -32,6 +49,7 @@ const input = props => {
           {...props}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.changed}
         />
       );
       break;
