@@ -35,7 +35,6 @@ export const initIngredients = () => {
         .get("https://react-my-burger-3c472.firebaseio.com/ingredients.json")
         .then(response => {
         //   this.setState({ ingredients: response.data });
-        console.log(response.data)
         dispatch(setIngredients(response.data));
         })
         .catch(error => {
