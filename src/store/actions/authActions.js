@@ -22,6 +22,24 @@ export const authFail = (error) => {
     }
 }
 
+export const logout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+
+    }
+}
+
+
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        
+            setTimeout(() => {
+                dispatch(logout());
+            }, expirationTime*1000);
+        
+    }
+}
+
 export const auth = (email, password, method) => {
     return dispatch => {
         //...authenticate user
@@ -31,6 +49,7 @@ export const auth = (email, password, method) => {
             password: password,
             returnSecureToken: true
         }
+        
         let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDcWsn_4PcrTeIrbKCr1D2ozydVRtl75qw';
         if(!method) {
             url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDcWsn_4PcrTeIrbKCr1D2ozydVRtl75qw';
@@ -41,10 +60,11 @@ export const auth = (email, password, method) => {
         .then(response => {
             console.log(response);
             dispatch(authSuccess(response.data.idToken, response.data.localId));
+            dispatch(checkAuthTimeout(response.data.expiresIn));
         })
         .catch(err => {
             console.log("This is the error: " + err);
-            dispatch(authFail(err));
+            dispatch(authFail(err.response.data.error));
         })
     }
 }
