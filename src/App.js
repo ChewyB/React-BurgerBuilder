@@ -8,18 +8,16 @@ import Auth from "./containers/Auth/Auth";
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
         <div>
           <Layout>
-            <Switch>
-              <Route path="/" exact component={BurgerBuilder} />
+            <Switch> 
               <Route path="/checkout" component={Checkout} />
-              <Route path="/auth" component={Auth} />
               <Route path="/orders" component={Orders} />
+              <Route path="/auth" component={Auth} />
+              <Route path="/" exact component={BurgerBuilder} />
             </Switch>
           </Layout>
         </div>
-      </BrowserRouter>
     );
   }
 }
