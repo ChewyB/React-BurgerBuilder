@@ -8,9 +8,12 @@ export const authStart = () => {
 }
 
 export const authSuccess = (token, userId) => {
+
+    console.log("Token value is: " + token)
+    console.log("UserId is: " + userId)
     return {
         type: actionTypes.AUTH_START_SUCCESS,
-        token: token,
+        idToken: token,
         userId: userId
     }
 }
@@ -40,7 +43,7 @@ export const checkAuthTimeout = (expirationTime) => {
     }
 }
 
-export const auth = (email, password, method) => {
+export const auth = (email, password, isSignUp) => {
     return dispatch => {
         //...authenticate user
         dispatch(authStart());
@@ -51,7 +54,7 @@ export const auth = (email, password, method) => {
         }
         
         let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDcWsn_4PcrTeIrbKCr1D2ozydVRtl75qw';
-        if(!method) {
+        if(!isSignUp) {
             url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDcWsn_4PcrTeIrbKCr1D2ozydVRtl75qw';
         }
         console.log("This is the URL: " + url)
