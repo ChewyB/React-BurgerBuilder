@@ -10,6 +10,5 @@ export {
  } from './orderActions'
  export {
      auth,
-     authFail,
-     authSuccess
+     logout
  } from './authActions'
